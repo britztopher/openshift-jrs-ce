@@ -1,0 +1,65 @@
+#!/bin/bash -e
+# Adapted from https://github.com/kr/heroku-buildpack-go
+#
+
+set -eo pipefail
+
+case "$1" in
+  -v|--version)
+    version="$2"
+esac
+
+# Parse arguments
+source "${OPENSHIFT_JRS_DIR}/lib/util"
+parse_args $@
+
+# Don't set -u until after the above arg parsing is complete
+set -u
+
+# Environment variable definitions
+JRS_NAME="JasperReports Server"
+JRS_EDITION="Pro"
+JRS_PRO_DOWNLOAD_HOST="http://host"
+
+PSQL_JDBC_DRIVER_FILE="postgresql-9.2-1003.jdbc4.jar"
+PSQL_JDBC_DRIVER_URL="http://jdbc.postgresql.org/download/$PSQL_JDBC_DRIVER_FILE"
+
+mkdir -p "./cache"
+cache=$(cd "cache/" && pwd)
+ver=${JRS_VERSION:-5.1.0}
+file=${JRS_FILE:-jasperreports-pro-$ver.zip}
+jrs_url=${JRS_URL:-$JRS_PRO_DOWNLOAD_HOST/$file}
+jdbc_psql_url=${PSQL_JDBC_DRIVER_URL:-$PSQL_JDBC_DRIVER_URL}
+buildpack=$(dirname $(dirname $0))
+
+if test -d $cache/jrs-$ver/
+then
+    echo "-----> Using $JRS_NAME $JRS_EDITION $ver"
+else
+    mkdir -p $cache/jrs-$ver
+    cd $cache/jrs-$ver
+    echo    "       Initial download, may take several minutes"
+    echo -n "-----> Installing $JRS_NAME $JRS_EDITION $ver ..."
+    curl -sO $jrs_url
+    unzip -q $file
+    #rm -f $file
+    echo " done"
+fi
+
+JRSROOT=$cache/jrs-$ver/ export JRSROOT
+cd $JRSROOT
+
+echo "-----> Downloading PostgreSQL JDBC driver ... "
+curl -sO $jdbc_psql_url
+echo " done"
+
+cd $JRSROOT/buildomatic
+
+echo "------> Running: js-ant create-js-db ..."
+./js-ant create-js-db
+echo "------> Running: js-ant init-js-db-pro ..."
+./js-ant init-js-db-pro
+echo "------> Running: js-ant import-minimal-pro ..."
+./js-ant import-minimal-pro
+
+echo $JRSROOT > $OPENSHIFT_JRS_DIR/env/JRS_ROOT

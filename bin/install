@@ -1,0 +1,23 @@
+#!/bin/bash
+#set -e
+
+# invoke ant deploy task
+# run data loading scripts
+
+echo "-----> Installing: PostgreSQL JDBC driver ..."
+cd $JRSROOT
+mv $PSQL_JDBC_DRIVER_FILE $OPENSHIFT_JBOSSAS_DIR/webapps/jaspersoft-pro/WEB-INF/lib/
+echo " done"
+
+cd $JRSROOT/cache/jrs-5.1/buildomatic
+
+echo "-----> Running: js-ant import-sample-data-pro ..."
+./js-ant import-sample-data-pro
+echo " done"
+
+echo "-----> Running: js-ant deploy-webapp-pro ..."
+./js-ant deploy-webapp-pro
+echo " done"
+
+
+echo "-----> Installation complete!"
