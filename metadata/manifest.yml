@@ -1,32 +1,23 @@
-Name: JasperReports Server
+Name: jrs
 Cartridge-Short-Name: JRS
-Display-Name: "JasperReports Server 5.1"
+Cartridge-Version: '0.0.1'
+Cartridge-Vendor: jaspersoft
+Display-Name: JasperReports Server CE 5.2
 Description: "Jaspersoft reporting software takes information from one or more data sources and presents it in an easy-to-read, highly interactive format."
-Version: "5.1"
-Versions: ["5.1", "5.1.0"]
-Vendor: "Jaspersoft Corporation"
-Website: http://www.jaspersoft.com/
-Help-Topics: http://community.jaspersoft.com/
-Source-Url: http://community.jaspersoft.com/sites/default/files/releases/jasperreports-server-cp-5.1.0-bin_2.zip
-Cartridge-Version: 0.0.1
-Cartridge-Vendor: "Jaspersoft Corporation"
+Version: '5.2.0'
+Vendor: Jaspersoft Corporation
+License: "AGPL"
 Categories:
-  - service
   - java
+Website: http://www.jaspersoft.com
+Help-Topics:
+  "Community Site": http://community.jaspersoft.com
 Provides:
-  - jrs-5.1
+  - jrs-5.2
   - "jrs"
-  - "jrs (version) = 5.1"
 Scaling:
   Min: 1
   Max: -1
-Publishes:
-  get-doc-root:
-    Type: "FILESYSTEM:doc-root"
-  publish-http-url:
-    Type: "NET_TCP:httpd-proxy-info"
-  publish-gear-endpoint:
-    Type: "NET_TCP:gear-endpoint-info"
 Subscribes:
   set-db-connection-info:
     Type: "ENV:NET_TCP:db:connection-info"
@@ -40,19 +31,4 @@ Subscribes:
   set-nosql-db-connection-info:
     Type: "ENV:NET_TCP:nosqldb:connection-info"
     Required : false
-Group-Overrides:
-  - components:
-    - jrs-5.1
-Endpoints:
-  - Private-IP-Name:   IP
-    Private-Port-Name: PORT
-    Private-Port:      8080
-    Public-Port-Name:  PROXY_PORT
-    Mappings:
-      - Frontend:      ""
-        Backend:       ""
-        Options:       { websocket: true }
-      - Frontend:      "/"
-        Backend:       "/jaspersoft-pro"
-        Options:       { health: true }
 Install-Build-Required: false

@@ -1,33 +1,43 @@
-OpenShift Go Cartridge
-======================
+# OpenShift JasperReports Server CE Cartridge
 
-Runs [JasperReports Server Pro](http://www.jaspersoft.com) on [OpenShift](https://openshift.redhat.com/app/login) using downloadable cartridge support.  
+This cartridge is targetted for developers that want to leverage the [JasperReports Server CE](http://www.jaspersoft.com) as the embed BI engine for their own application on  [OpenShift](https://openshift.redhat.com/app/login).
 
-To install to OpenShift from the CLI (you'll need version 1.9 or later of rhc), run:
+## Setup
 
-    rhc create-app jrs51 http://cartreflect-claytondev.rhcloud.com/reflect?github=smarterclayton/openshift-go-cart
+### Requirements
 
-When you push code to the repo, the cart will compile your package into $OPENSHIFT_REPO_DIR/bin/, with the last segment of the .godir being the name of the executable.  For the above .godir, your executable will be:
+  * Openshift account
+  * rhc tools, version 1.9 or later
 
-    $OPENSHIFT_REPO_DIR/bin/example
+### Installation
 
-If you want to serve web requests (vs. running in the background), you'll need to listen on the ip address and port that OpenShift allocates - those are available as HOST and PORT in the environment.
+If you have already a JBoss AS 7 application created run:
 
+    rhc cartridge add http://cartreflect-claytondev.rhcloud.com/reflect?github=rudygodoy/openshift-jrs-ce --app <you_app_name>
 
-Any log output will be generated to $OPENSHIFT_GO_DIR/logs/go.log
+If you don't have a JBoss AS 7 Openshift applcation created, run:
 
-
-How it Works
-------------
-
-When you push code to your repo, a Git postreceive hook runs and invokes the bin/compile script.  This attempts to download a Go environment for you into $OPENSHIFT_GO_DIR/cache.  Once the environment is setup, the cart runs
-
-    go get -tags openshift ./...
-
-on a working copy of your source.  The main file that you run will have access to two environment variables, $HOST and $PORT, which contain the internal address you must listen on to receive HTTP requests to your application.
+    rhc app create -a <my_app_name> jbossas-7 postresql-9.2 http://cartreflect-claytondev.rhcloud.com/reflect?github=rudygodoy/openshift-jrs-ce
 
 
-Credits
--------
+## Application integration
 
-The bin/compile script is based on the [Heroku Go buildpack](https://github.com/kr/heroku-buildpack-go), adapted for OpenShift cartridges.
+If you are developing a product or managing an environment in which you want to integrate or embed BI, JasperReports Server provides several interfaces to allow you to do so quickly and easily. When integrating JasperReports Server into your environment or application, you will want to integrate two key areas: authentication and user interface.
+
+
+### Capabilities
+
+   * Single Sign On
+   * HTTP APIs
+   * User Interface Themes/skin
+   * Web Services APIs
+
+For more details, please visit: (http://www.jaspersoft.com/getting-started)
+
+
+### Default credentials
+
+**Default username:** jasperadmin
+**Default password:** jasperadmin
+
+

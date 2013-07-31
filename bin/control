@@ -1,66 +1,13 @@
 #!/bin/bash
 
-STOPTIMEOUT=10
-FMT="%a %b %d %Y %H:%M:%S GMT%z (%Z)"
-
-function is_jrs_running() {
-# TODO
-    return 0
-}
-
-function status() {
-    if [ is_jrs_running ]; then
-        client_result "Application is running"
-    else
-        client_result "Application is not running"
-    fi
-}
-
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 function start() {
-    logf="$OPENSHIFT_JRS_DIR/logs/jrs.log"
-    pushd "$OPENSHIFT_REPO_DIR" > /dev/null
-    {
-        if [ -f "bin/$package" ]; then
-            echo "`date +"$FMT"`: Starting application '$OPENSHIFT_APP_NAME' from bin/$package..."
-
-            nohup "bin/$package" >> $logf 2>&1 &
-
-            ret=$?
-            npid=$!
-            if [ $ret -eq 0 ]; then
-                echo "$npid" > "$OPENSHIFT_JRS_DIR/pid/go.pid"
-            else
-                echo "Application '$OPENSHIFT_APP_NAME' failed to start - $ret" 1>&2
-                exit $ret
-            fi
-        else
-            echo "WARN: Could not find the compiled application bin/$package, will not start"
-        fi
-    } >> $logf
+   echo
 }
 
 function stop() {
-
-    if [ -n "$go_pid" ]; then
-        logf="$OPENSHIFT_JRS_DIR/logs/jrs.log"
-        echo "`date +"$FMT"`: Stopping application '$OPENSHIFT_APP_NAME' ..." >> $logf
-        /bin/kill $go_pid
-        ret=$?
-        if [ $ret -eq 0 ]; then
-            TIMEOUT="$STOPTIMEOUT"
-            while [ $TIMEOUT -gt 0 ] && is_jrs_running ; do
-                /bin/kill -0 "$go_pid" >/dev/null 2>&1 || break
-                sleep 1
-                let TIMEOUT=${TIMEOUT}-1
-            done
-        fi
-
-        echo "`date +"$FMT"`: Stopped application '$OPENSHIFT_APP_NAME'" >> $logf
-        rm -f $OPENSHIFT_JRS_DIR/pid/go.pid
-    else
-        echo "Warning: Application '$OPENSHIFT_APP_NAME' server exists without a pid file.  Use force-stop to kill." 1>&2
-    fi
+   echo
 }
 
 function restart() {
@@ -83,6 +30,11 @@ function tidy() {
   rm -rf $OPENSHIFT_JRS_DIR/tmp/*
 }
 
+function catchall {
+  echo "not yet implemented"
+}
+
+
 #
 #  main():
 #
@@ -93,18 +45,17 @@ if ! [ $# -eq 1 ]; then
     exit 1
 fi
 
-# Source utility functions.
-source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 # Handle commands.
 case "$1" in
     start)               start       ;;
     restart|graceful)    restart     ;;
     graceful-stop|stop)  stop        ;;
-    status)              status      ;;
-    pre-build)           pre-build   ;;
-    post-deploy)         post-deploy ;;
-    tidy)                tidy        ;;
-    *) exit 0;
+    status)              catchall    ;;
+    pre-build)           catchall    ;;
+    post-deploy)         catchall    ;;
+    tidy)                catchall    ;;
+    *)                   exit 0
 esac
 
+exit 0

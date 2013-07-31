@@ -32,7 +32,7 @@
 # appServerType = tomcat5
 # appServerType = tomcat6
 # appServerType = jboss
-appServerType = jboss7
+appServerType = jboss-as-7
 # appServerType = glassfish2
 # appServerType = glassfish3
 # (beta) appServerType = weblogic
@@ -50,7 +50,7 @@ appServerDir=<%= ENV['OPENSHIFT_JBOSSAS_DIR'] %>
 # appServerDir = C:\\jboss-5.1.0
 # appServerDir = /home/devuser/jboss-5.1.0
 # appServerDir = /usr/bin/jboss
-# jboss.profile = default
+jboss.profile = default
 
 # Glassfish app server root dir
 # appServerDir = C:\\glassfish-3.1.2
@@ -70,9 +70,9 @@ dbPassword=<%= ENV['OPENSHIFT_POSTGRESQL_DB_PASSWORD'] %>
 dbPort=<%= ENV['OPENSHIFT_POSTGRESQL_DB_PORT'] %>
 
 # JasperServer db name, sample db names
-js.dbName=jaspersoft
-sugarcrm.dbName=sugarcrm
-foodmart.dbName=foodmart
+js.dbName=<%= ENV['OPENSHIFT_APP_NAME'] %>
+#sugarcrm.dbName=sugarcrm
+#foodmart.dbName=foodmart
 
 # web app name
 # (set one of these to deploy to a non-default war file name)
