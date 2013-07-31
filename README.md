@@ -17,7 +17,7 @@ If you have already a JBoss AS 7 application created run:
 
 If you don't have a JBoss AS 7 Openshift applcation created, run:
 
-    rhc app create -a <my_app_name> jbossas-7 postresql-9.2 http://cartreflect-claytondev.rhcloud.com/reflect?github=rudygodoy/openshift-jrs-ce
+    rhc app create -a <my_app_name> jbossas-7 postgresql-9.2 http://cartreflect-claytondev.rhcloud.com/reflect?github=rudygodoy/openshift-jrs-ce
 
 
 ## Application integration
