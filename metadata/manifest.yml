@@ -7,7 +7,6 @@ Description: "Jaspersoft reporting software takes information from one or more d
 Version: '5.2.0'
 Vendor: Jaspersoft Corporation
 License: "AGPL"
-Source-Url: git@github.com:rudygodoy/openshift-jrs-ce.git
 Categories:
   - java
 Website: http://www.jaspersoft.com
@@ -19,4 +18,4 @@ Provides:
 Scaling:
   Min: 1
   Max: -1
-Install-Build-Required: false
+Install-Build-Required: true
