@@ -1,11 +1,10 @@
 ---
 locked_files:
-- bin/
-- bin/*
 - env/
-- env/*
+- conf/
+- bin/
 process_templates:
-- **/*.erb
+- '**/*.erb'
 setup_rewritten:
 - conf/*
 - env/*

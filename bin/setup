@@ -2,6 +2,8 @@
 # Adapted from https://github.com/kr/heroku-buildpack-go
 #
 
+set -e
+
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 # Environment variable definitions
@@ -9,30 +11,30 @@ JRS_NAME="JasperReports Server"
 JRS_EDITION="CE"
 JRS_DOWNLOAD_HOST="http://d1zrxsx5g57hp8.cloudfront.net"
 
-mkdir -p "./cache"
-cache=$(cd "cache/" && pwd)
-ver=${JRS_VERSION:-5.2.0}
-file=${JRS_FILE:-jasperreports-server-cp-$ver-bin.zip}
+jrs_ver=${JRS_VERSION:-5.2.0}
+jrs_file=${JRS_FILE:-jasperreports-server-cp-$ver-bin.zip}
 jrs_url=${JRS_URL:-$JRS_DOWNLOAD_HOST/$file}
 buildpack=$(dirname $(dirname $0))
 
-if test -d $cache/jrs-$ver
-then
-    echo "-----> Using $JRS_NAME $JRS_EDITION $ver"
-else
-    mkdir -p $cache/jrs-$ver
-    cd $cache/jrs-$ver
-    echo    "       Initial download, may take several minutes"
-    echo -n "-----> Downloading $JRS_NAME $JRS_EDITION $ver ..."
-    curl -sO $jrs_url
-    unzip -q $file
-    echo " done"
-fi
+JRS_ROOT=${OPENSHIFT_TMP_DIR}/$jrs_ver export JRS_ROOT
+JRS_BUILDOMATIC=$JRS_ROOT/jasperreports-server-$jrs_ver-bin/buildomatic export JRS_BUILDOMATIC
 
-JRS_ROOT=$cache/jrs-$ver export JRS_ROOT
-JRS_BUILDOMATIC=$JRS_ROOT/jasperreports-server-$ver-bin/buildomatic export JRS_BUILDOMATIC
+if test -d ${JRS_ROOT}
+then
+    echo "-----> Using $JRS_NAME $JRS_EDITION $jrs_ver"
+else
+    mkdir -p ${JRS_ROOT}
+fi
+cd ${JRS_ROOT}
+echo    "       Initial download, may take several minutes"
+echo -n "-----> Downloading $JRS_NAME $JRS_EDITION $jrs_ver ..."
+curl -sO $jrs_url
+echo " done"
+
+jar -xvf $jrs_file
+rm -f $jrs_file
 
 echo $JRS_ROOT > $OPENSHIFT_JRS_DIR/env/JRS_ROOT
 echo $JRS_BUILDOMATIC > $OPENSHIFT_JRS_DIR/env/JRS_BUILDOMATIC
 
-echo "passed setup" > $OPENSHIFT_JRS_DIR/logs/install.log
+echo "Passed setup" >> $OPENSHIFT_JRS_DIR/logs/install.log

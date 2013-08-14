@@ -7,6 +7,7 @@ Description: "Jaspersoft reporting software takes information from one or more d
 Version: '5.2.0'
 Vendor: Jaspersoft Corporation
 License: "AGPL"
+Source-Url: https://github.com/rudygodoy/openshift-jrs-ce.git
 Categories:
   - java
 Website: http://www.jaspersoft.com
@@ -18,17 +19,4 @@ Provides:
 Scaling:
   Min: 1
   Max: -1
-Subscribes:
-  set-db-connection-info:
-    Type: "ENV:NET_TCP:db:connection-info"
-    Required: true
-  set-mysql-connection-info:
-    Type: "NET_TCP:db:mysql"
-    Required : false
-  set-postgres-connection-info:
-    Type: "NET_TCP:db:postgres"
-    Required : true
-  set-nosql-db-connection-info:
-    Type: "ENV:NET_TCP:nosqldb:connection-info"
-    Required : false
 Install-Build-Required: false

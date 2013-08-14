@@ -5,10 +5,9 @@
 
 cd $JRS_BUILDOMATIC
 
-cp $OPENSHIFT_JRS_DIR/conf/default_master.properties .
+cp -f $OPENSHIFT_JRS_DIR/conf/default_master.properties .
+erb $OPENSHIFT_JRS_DIR/conf/default_master.properties.erb > default_master.properties
 
-echo "------> Running: js-ant create-js-db ..."
-./js-ant create-js-db
 echo "------> Running: js-ant init-js-db-pro ..."
 ./js-ant init-js-db-ce
 echo "------> Running: js-ant import-minimal-pro ..."
@@ -22,4 +21,4 @@ echo "-----> Running: js-ant deploy-webapp-pro ..."
 ./js-ant deploy-webapp-ce
 echo " done"
 
-echo "-----> Installation complete!"
+echo "-----> Installation complete!" >> $OPENSHIFT_JRS_DIR/logs/install.log
