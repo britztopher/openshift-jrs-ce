@@ -8,8 +8,14 @@ chmod 755 bin/*
 chmod 755 ../apache-ant/bin/*
 chmod 755 js-ant
 
-cp -f $OPENSHIFT_JRS_DIR/conf/default_master.properties .
-# erb $OPENSHIFT_JRS_DIR/conf/default_master.properties.erb > default_master.properties
+ls -lh $OPENSHIFT_JRS_DIR/conf >> $OPENSHIFT_TMP_DIR/install.log
+
+if [ -f $OPENSHIFT_JRS_DIR/conf/default_master.properties ]; then
+    cp -f $OPENSHIFT_JRS_DIR/conf/default_master.properties .
+else
+    erb $OPENSHIFT_JRS_DIR/conf/default_master.properties.erb > default_master.properties
+fi
+echo "-----> Copied processed default_master.properties " >> $OPENSHIFT_TMP_DIR/install.log
 
 echo "------> Running: js-ant init-js-db-pro ..."
 ./js-ant init-js-db-ce
@@ -24,4 +30,4 @@ echo "-----> Running: js-ant deploy-webapp-pro ..."
 ./js-ant deploy-webapp-ce
 echo " done"
 
-echo "-----> Installation complete!" >> $OPENSHIFT_JRS_DIR/logs/install.log
+echo "-----> Installation complete!" >> $OPENSHIFT_TMP_DIR/install.log
