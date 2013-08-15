@@ -3,6 +3,8 @@
 # invoke ant deploy task
 # run data loading scripts
 
+echo "-----> Install stage " >> $OPENSHIFT_TMP_DIR/install.log
+
 cd $JRS_BUILDOMATIC
 chmod 755 bin/*
 chmod 755 ../apache-ant/bin/*
