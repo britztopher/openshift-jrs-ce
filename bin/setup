@@ -14,9 +14,8 @@ JRS_DOWNLOAD_HOST="http://d1zrxsx5g57hp8.cloudfront.net"
 jrs_ver=${JRS_VERSION:-5.2.0}
 jrs_file=${JRS_FILE:-jasperreports-server-cp-$ver-bin.zip}
 jrs_url=${JRS_URL:-$JRS_DOWNLOAD_HOST/$jrs_file}
-buildpack=$(dirname $(dirname $0))
 
-JRS_ROOT=${OPENSHIFT_TMP_DIR}/$jrs_ver export JRS_ROOT
+JRS_ROOT=${OPENSHIFT_TMP_DIR}$jrs_ver export JRS_ROOT
 JRS_BUILDOMATIC=$JRS_ROOT/jasperreports-server-$jrs_ver-bin/buildomatic export JRS_BUILDOMATIC
 
 if test -d ${JRS_ROOT}
@@ -28,6 +27,7 @@ fi
 cd ${JRS_ROOT}
 echo    "       Initial download, may take several minutes"
 echo -n "-----> Downloading $JRS_NAME $JRS_EDITION $jrs_ver ..."
+echo "Downloading $jrs_url" >> $OPENSHIFT_TMP_DIR/install.log
 curl -sO $jrs_url
 echo " done"
 
@@ -37,4 +37,4 @@ rm -f $jrs_file
 echo $JRS_ROOT > $OPENSHIFT_JRS_DIR/env/JRS_ROOT
 echo $JRS_BUILDOMATIC > $OPENSHIFT_JRS_DIR/env/JRS_BUILDOMATIC
 
-echo "Passed setup" >> $OPENSHIFT_JRS_DIR/logs/install.log
+echo "Passed setup" >> $OPENSHIFT_TMP_DIR/install.log
