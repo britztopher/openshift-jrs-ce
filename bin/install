@@ -20,16 +20,16 @@ fi
 echo "-----> Copied processed default_master.properties " >> $OPENSHIFT_TMP_DIR/install.log
 
 echo "------> Running: js-ant init-js-db-pro ..."
-./js-ant init-js-db-ce
+./js-ant init-js-db-ce 2&>> $OPENSHIFT_TMP_DIR/install.log
 echo "------> Running: js-ant import-minimal-pro ..."
-./js-ant import-minimal-ce
+./js-ant import-minimal-ce 2&>> $OPENSHIFT_TMP_DIR/install.log
 
 #echo "-----> Running: js-ant import-sample-data-pro ..."
 #./js-ant import-sample-data-ce
 #echo " done"
 
 echo "-----> Running: js-ant deploy-webapp-pro ..."
-./js-ant deploy-webapp-ce
+./js-ant deploy-webapp-ce 2&>> $OPENSHIFT_TMP_DIR/install.log
 echo " done"
 
 echo "-----> Installation complete!" >> $OPENSHIFT_TMP_DIR/install.log
