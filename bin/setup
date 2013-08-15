@@ -13,7 +13,7 @@ JRS_DOWNLOAD_HOST="http://d1zrxsx5g57hp8.cloudfront.net"
 
 jrs_ver=${JRS_VERSION:-5.2.0}
 jrs_file=${JRS_FILE:-jasperreports-server-cp-$ver-bin.zip}
-jrs_url=${JRS_URL:-$JRS_DOWNLOAD_HOST/$file}
+jrs_url=${JRS_URL:-$JRS_DOWNLOAD_HOST/$jrs_file}
 buildpack=$(dirname $(dirname $0))
 
 JRS_ROOT=${OPENSHIFT_TMP_DIR}/$jrs_ver export JRS_ROOT
