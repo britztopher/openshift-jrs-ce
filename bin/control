@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
@@ -45,15 +45,15 @@ if ! [ $# -eq 1 ]; then
     exit 1
 fi
 
-
 # Handle commands.
 case "$1" in
     start)               start       ;;
     restart|graceful)    restart     ;;
     graceful-stop|stop)  stop        ;;
+    reload)              catchall    ;;
     status)              catchall    ;;
-    pre-build)           catchall    ;;
-    post-deploy)         catchall    ;;
+    build|pre-build)     catchall    ;;
+    deploy|post-deploy)  catchall    ;;
     tidy)                catchall    ;;
     *)                   exit 0
 esac
