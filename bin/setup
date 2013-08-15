@@ -16,7 +16,7 @@ jrs_file=${JRS_FILE:-jasperreports-server-cp-$jrs_ver-bin.zip}
 jrs_url=${JRS_URL:-$JRS_DOWNLOAD_HOST/$jrs_file}
 
 JRS_ROOT=${OPENSHIFT_TMP_DIR}$jrs_ver export JRS_ROOT
-JRS_BUILDOMATIC=$JRS_ROOT/jasperreports-server-$jrs_ver-bin/buildomatic export JRS_BUILDOMATIC
+JRS_BUILDOMATIC=$JRS_ROOT/jasperreports-server-cp-$jrs_ver-bin/buildomatic export JRS_BUILDOMATIC
 
 if test -d ${JRS_ROOT}
 then
