@@ -1,10 +1,10 @@
-Name: jrs-5.2
+Name: jrs
 Cartridge-Short-Name: JRS
 Cartridge-Version: '0.0.1'
 Cartridge-Vendor: jaspersoft
 Display-Name: JasperReports Server CE 5.2
 Description: "Jaspersoft reporting software takes information from one or more data sources and presents it in an easy-to-read, highly interactive format."
-Version: '5.2.0'
+Version: '5.2'
 Vendor: Jaspersoft Corporation
 License: "AGPL"
 Categories:
@@ -15,7 +15,7 @@ Help-Topics:
 Provides:
   - jrs-5.2
   - "jrs"
-  - "jrs(version) = 5.2.0"
+  - "jrs(version) = 5.2"
 Scaling:
   Min: 1
   Max: -1
