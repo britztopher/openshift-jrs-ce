@@ -4,9 +4,12 @@
 # run data loading scripts
 
 cd $JRS_BUILDOMATIC
+chmod 755 bin/*
+chmod 755 ../apache-ant/bin/*
+chmod 755 js-ant
 
 cp -f $OPENSHIFT_JRS_DIR/conf/default_master.properties .
-erb $OPENSHIFT_JRS_DIR/conf/default_master.properties.erb > default_master.properties
+# erb $OPENSHIFT_JRS_DIR/conf/default_master.properties.erb > default_master.properties
 
 echo "------> Running: js-ant init-js-db-pro ..."
 ./js-ant init-js-db-ce
