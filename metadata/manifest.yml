@@ -15,7 +15,21 @@ Help-Topics:
 Provides:
   - jrs-5.2
   - "jrs"
+  - "jrs(version) = 5.2.0"
 Scaling:
   Min: 1
   Max: -1
+Subscribes:
+  set-db-connection-info:
+    Type: "NET_TCP:db:connection-info"
+    Required: false
+  set-nosql-db-connection-info:
+    Type: "NET_TCP:nosqldb:connection-info"
+    Required: false
+  set-mysql-connection-info:
+    Type: "NET_TCP:db:mysql"
+    Required : false
+  set-postgres-connection-info:
+    Type: "NET_TCP:db:postgres"
+    Required : false
 Install-Build-Required: true
