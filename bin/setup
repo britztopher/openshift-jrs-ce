@@ -40,6 +40,9 @@ then
     echo "Expanded $jrs_file" >> $OPENSHIFT_TMP_DIR/install.log
 fi
 
+rm -f $jrs_file
+echo "Removing $jrs_file" >> $OPENSHIFT_TMP_DIR/install.log
+
 echo $JRS_ROOT > $OPENSHIFT_JRS_DIR/env/JRS_ROOT
 echo $JRS_BUILDOMATIC > $OPENSHIFT_JRS_DIR/env/JRS_BUILDOMATIC
 
