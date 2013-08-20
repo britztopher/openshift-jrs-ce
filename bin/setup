@@ -30,9 +30,8 @@ echo    "       Initial download, may take several minutes"
 echo -n "-----> Downloading $JRS_NAME $JRS_EDITION $jrs_ver ..."
 if [ ! -f $jrs_file ]; then
     curl -sO $jrs_url
-    echo "Downloading $jrs_url" >> $OPENSHIFT_TMP_DIR/install.log
+    echo "Downloaded $jrs_url" >> $OPENSHIFT_TMP_DIR/install.log
 fi
-echo " done"
 
 if ! test -d ${JRS_BUILDOMATIC}
 then
