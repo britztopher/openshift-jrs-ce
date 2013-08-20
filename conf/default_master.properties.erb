@@ -31,8 +31,8 @@
 # appServerType = tomcat7
 # appServerType = tomcat5
 # appServerType = tomcat6
-# appServerType = jboss
-appServerType = jboss-as-7
+appServerType = jboss
+# appServerType = jboss-as-7
 # appServerType = glassfish2
 # appServerType = glassfish3
 # (beta) appServerType = weblogic
@@ -40,7 +40,7 @@ appServerType = jboss-as-7
 # appServerType = skipAppServerCheck
 
 # Tomcat app server root dir
-appServerDir=<%= ENV['OPENSHIFT_JBOSSAS_DIR'] %>
+appServerDir=<%= ENV['OPENSHIFT_JBOSSEAP_DIR'] %>
 # appServerDir = /home/devuser/apache-tomcat-7.0.26
 # if linux package managed tomcat instance, set two properties below
 # CATALINA_HOME = /usr/share/tomcat6
