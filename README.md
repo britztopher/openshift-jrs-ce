@@ -6,18 +6,21 @@ This cartridge is targetted for developers that want to leverage the [JasperRepo
 
 ### Requirements
 
-  * Openshift account
+  * Openshift account. 
+  * Gear size should be medium. You'll need to manually add additional storage (min. 2GB) to the default storage for your cartridge.
   * rhc tools, version 1.9 or later
+  * JBoss EAP6 cartridge
+  * PostgreSQL 9.2 cartridge
 
 ### Installation
 
-If you have already a JBoss AS 7 application created run:
+If you have already a JBoss EAP 6 application created run:
 
     rhc cartridge add http://cartreflect-claytondev.rhcloud.com/reflect?github=rudygodoy/openshift-jrs-ce --app <you_app_name>
 
-If you don't have a JBoss AS 7 Openshift applcation created, run:
+If you don't have a JBoss EAP 6 Openshift application created, run:
 
-    rhc app create -a <my_app_name> jbossas-7 postgresql-9.2 http://cartreflect-claytondev.rhcloud.com/reflect?github=rudygodoy/openshift-jrs-ce
+    rhc app create -a <my_app_name> jbosseap-6.0 postgresql-9.2 http://cartreflect-claytondev.rhcloud.com/reflect?github=rudygodoy/openshift-jrs-ce
 
 
 ## Application integration
@@ -32,12 +35,13 @@ If you are developing a product or managing an environment in which you want to 
    * User Interface Themes/skin
    * Web Services APIs
 
-For more details, please visit: (http://www.jaspersoft.com/getting-started)
+For more details, please visit: http://www.jaspersoft.com/getting-started
 
 
 ### Default credentials
 
 **Default username:** jasperadmin
+
 **Default password:** jasperadmin
 
 
