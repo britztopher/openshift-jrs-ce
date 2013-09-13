@@ -3,7 +3,9 @@
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 function start() {
-   echo
+    cd $JRS_BUILDOMATIC
+    echo $JRS_BUILDOMATIC
+    echo
 }
 
 function stop() {
