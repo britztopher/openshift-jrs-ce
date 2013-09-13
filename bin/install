@@ -29,7 +29,9 @@ echo "------> Running: js-ant import-minimal-pro ..."
 #echo " done"
 
 echo "-----> Running: js-ant deploy-webapp-pro ..."
-./js-ant deploy-webapp-ce &>> $OPENSHIFT_TMP_DIR/install.log
+# ./js-ant deploy-webapp-ce &>> $OPENSHIFT_TMP_DIR/install.log
 echo " done"
+
+echo "0" > $OPENSHIFT_TMP_DIR/deployed
 
 echo "-----> Installation complete!" >> $OPENSHIFT_TMP_DIR/install.log
